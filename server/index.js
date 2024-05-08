@@ -66,7 +66,7 @@ async function run() {
 
     // Get all jobs posted by spcific user
     app.get("/jobs/:email", async (req, res) => {
-      const email = req.query.email;
+      const email = req.params.email;
       const query = { "buyer.email": email };
       const cursor = jobsCollection.find(query);
       const result = await cursor.toArray();
