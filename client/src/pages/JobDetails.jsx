@@ -52,6 +52,8 @@ const JobDetails = () => {
         bidData
       );
       console.log(data);
+      toast.success("Bid placed successfully");
+      form.reset();
     } catch (err) {
       console.log(err);
       console.log("Hi, i am error", err.message);

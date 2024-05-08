@@ -47,6 +47,15 @@ async function run() {
       const result = await jobsCollection.findOne(query);
       res.send(result);
     });
+
+    // Save bids data to mongodb
+    app.post("/bid", async (req, res) => {
+      const data = req.body;
+      console.log(data);
+      const result = await bidsCollection.insertOne(data);
+      res.send(result);
+    });
+
     console.log("You successfully connected to MongoDB!");
   } finally {
   }
