@@ -51,9 +51,11 @@ const JobDetails = () => {
         `${import.meta.env.VITE_API_URL}/bid`,
         bidData
       );
-      console.log(data);
-      toast.success("Bid placed successfully");
-      form.reset();
+      if (data.acknowledged) {
+        toast.success("Bid placed successfully");
+        form.reset();
+      }
+      // console.log(data);
     } catch (err) {
       console.log(err);
       console.log("Hi, i am error", err.message);
