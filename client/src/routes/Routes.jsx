@@ -5,12 +5,13 @@ import Login from "../pages/Authentication/Login";
 import Registration from "../pages/Authentication/Registration";
 import JobDetails from "../pages/JobDetails";
 import AddJob from "../pages/AddJob";
+import ErrorPage from "../pages/ErrorPage";
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <div>Error</div>,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
