@@ -16,8 +16,27 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@atlascluster.xgsegjb.mongodb.net/?retryWrites=true&w=majority`;
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+async function run() {
+  try {
+    console.log("You successfully connected to MongoDB!");
+  } finally {
+  }
+}
+run().catch(console.log);
+
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello from soloSphere Server ....");
 });
 
 app.listen(port, () => {
