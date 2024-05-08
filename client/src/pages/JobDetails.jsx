@@ -9,6 +9,7 @@ const JobDetails = () => {
   const [startDate, setStartDate] = useState(new Date());
   const { user } = useContext(AuthContext);
   const job = useLoaderData();
+  // console.log(job);
   const {
     _id,
     job_title,

@@ -31,12 +31,20 @@ async function run() {
   try {
     const jobsCollection = client.db("soloSphere").collection("jobs");
     const bidsCollection = client.db("soloSphere").collection("bids");
-    // Get all jobs data from mongodb
 
+    // Get all jobs data from mongodb
     app.get("/jobs", async (req, res) => {
       const query = {};
       const cursor = jobsCollection.find(query);
       const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    // Get single job data from mongodb
+    app.get("/job/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await jobsCollection.findOne(query);
       res.send(result);
     });
     console.log("You successfully connected to MongoDB!");
