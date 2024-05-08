@@ -73,6 +73,14 @@ async function run() {
       res.send(result);
     });
 
+    // delete a job data from mongodb
+    app.delete("/job/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await jobsCollection.deleteOne(query);
+      res.send(result);
+    });
+
     console.log("You successfully connected to MongoDB!");
   } finally {
   }
