@@ -40,9 +40,12 @@ const AddJob = () => {
         `${import.meta.env.VITE_API_URL}/job`,
         jobData
       );
-      console.log(data);
-      toast.success("Job Data Updated Successfully!");
-      navigate("/my-posted-jobs");
+      if (data.acknowledged) {
+        toast.success("Job Data Updated Successfully!");
+        navigate("/my-posted-jobs");
+        form.reset();
+      }
+      // console.log(data);
     } catch (err) {
       console.log(err);
     }
@@ -86,7 +89,7 @@ const AddJob = () => {
 
               {/* Date Picker Input Field */}
               <DatePicker
-                className="border p-2 rounded-md"
+                className="border p-2 rounded-md w-full"
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
               />

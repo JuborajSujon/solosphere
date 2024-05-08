@@ -51,8 +51,16 @@ async function run() {
     // Save bids data to mongodb
     app.post("/bid", async (req, res) => {
       const data = req.body;
-      console.log(data);
+      // console.log(data);
       const result = await bidsCollection.insertOne(data);
+      res.send(result);
+    });
+
+    // Save jobs data to mongodb
+    app.post("/job", async (req, res) => {
+      const data = req.body;
+      // console.log(data);
+      const result = await jobsCollection.insertOne(data);
       res.send(result);
     });
 
