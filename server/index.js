@@ -64,6 +64,15 @@ async function run() {
       res.send(result);
     });
 
+    // Get all jobs posted by spcific user
+    app.get("/jobs/:email", async (req, res) => {
+      const email = req.query.email;
+      const query = { "buyer.email": email };
+      const cursor = jobsCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     console.log("You successfully connected to MongoDB!");
   } finally {
   }
