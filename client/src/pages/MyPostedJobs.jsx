@@ -24,8 +24,10 @@ const MyPostedJobs = () => {
       const { data } = await axios.delete(
         `${import.meta.env.VITE_API_URL}/job/${id}`
       );
-      console.log(data);
-      toast.success("Delete Successful");
+      // console.log(data);
+      if (data.acknowledged) {
+        toast.success("Delete Successful");
+      }
 
       //refresh ui
       getData();
