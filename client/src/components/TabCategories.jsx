@@ -8,8 +8,12 @@ const TabCategories = () => {
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios(`${import.meta.env.VITE_API_URL}/jobs`);
-      setJobs(data);
+      try {
+        const { data } = await axios(`${import.meta.env.VITE_API_URL}/jobs`);
+        setJobs(data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getData();
   }, []);
