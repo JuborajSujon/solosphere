@@ -96,6 +96,24 @@ async function run() {
       res.send(result);
     });
 
+    // Get all bids data from mongodb
+    app.get("/my-bids/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const cursor = bidsCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    // Get all bids requests from db for job owner
+    app.get("/bid-requests/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { "buyer.email": email };
+      const cursor = bidsCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     console.log("You successfully connected to MongoDB!");
   } finally {
   }
