@@ -51,8 +51,10 @@ const UpdateJob = () => {
         jobData
       );
       // console.log(data);
-      toast.success("Job Data Updated Successfully!");
-      navigate("/my-posted-jobs");
+      if (data.acknowledged) {
+        toast.success("Job Data Updated Successfully!");
+        navigate("/my-posted-jobs");
+      }
     } catch (err) {
       console.log(err);
       toast.error(err.message);
