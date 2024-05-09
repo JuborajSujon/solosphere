@@ -69,16 +69,16 @@ const routes = createBrowserRouter([
           fetch(`${import.meta.env.VITE_API_URL}/job/${params.id}`),
       },
       {
-        path: "/jobs",
-        element: <AllJobs />,
-      },
-      {
         path: "/my-bids",
         element: (
           <PrivateRoute>
             <MyBids />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/jobs",
+        element: <AllJobs />,
       },
     ],
   },
