@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 const JobDetails = () => {
   const [startDate, setStartDate] = useState(new Date());
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const job = useLoaderData();
   const {
     _id,
@@ -54,6 +55,7 @@ const JobDetails = () => {
       if (data.acknowledged) {
         toast.success("Bid placed successfully");
         form.reset();
+        navigate("/my-bids");
       }
       // console.log(data);
     } catch (err) {

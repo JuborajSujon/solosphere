@@ -10,8 +10,8 @@ const BidRequests = () => {
     queryFn: () => getData(),
     queryKey: ["bids", user?.email],
   });
-  console.log(bids);
-  console.log(isLoading);
+  // console.log(bids);
+  // console.log(isLoading);
   // const [bids, setBids] = useState([])
 
   // useEffect(() => {
@@ -41,6 +41,17 @@ const BidRequests = () => {
   });
 
   // handleStatus
+  /**
+   * const handleStatus = async (id, prevStatus,status) => {
+   *   if (prevStatus === status) return console.log("Sry vai.. hobena");
+   *   const { data } = await axios.patch(
+   *     `${import.meta.env.VITE_API_URL}/bid/${id}`,
+   *     { status }
+   *   );
+   *   console.log(data);
+   *   getData()
+   * };
+   */
   const handleStatus = async (id, prevStatus, status) => {
     console.log(id, prevStatus, status);
     if (prevStatus === status) return console.log("Sry vai.. hobena");
