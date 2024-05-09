@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const MyPostedJobs = () => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
@@ -94,6 +94,15 @@ const MyPostedJobs = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 ">
+                  {loading && (
+                    <tr>
+                      <td colSpan={6}>
+                        <div className="flex justify-center items-center min-h-[calc(100vh-360px)] my-12">
+                          <span className="loading loading-bars w-24"></span>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
                   {jobs.map((job) => (
                     <tr key={job._id}>
                       <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
