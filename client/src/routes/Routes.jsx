@@ -11,6 +11,7 @@ import UpdateJob from "../pages/UpdateJob";
 import AllJobs from "../pages/AllJobs";
 import PrivateRoute from "./PrivateRoute";
 import MyBids from "../pages/MyBids";
+import BidRequests from "../pages/BidRequests";
 
 const routes = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ const routes = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyBids />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/bid-requests",
+        element: (
+          <PrivateRoute>
+            <BidRequests />
           </PrivateRoute>
         ),
       },
