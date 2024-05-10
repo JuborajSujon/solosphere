@@ -19,6 +19,21 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
+// verify jwt middleware
+const verifyToken = (req, res, next) => {
+  const token = req.cookies?.token;
+  if (!token) {
+    return res.status(401).send({ message: "Unauthorized" });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).send({ message: "Unauthorized" });
+  }
+};
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@atlascluster.xgsegjb.mongodb.net/?retryWrites=true&w=majority`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -94,8 +109,13 @@ async function run() {
     });
 
     // Get all jobs posted by spcific user
-    app.get("/jobs/:email", async (req, res) => {
+    app.get("/jobs/:email", verifyToken, async (req, res) => {
+      const tokenEmail = req.user.email;
       const email = req.params.email;
+
+      if (email !== tokenEmail) {
+        return res.status(403).send({ message: "Forbidden access" });
+      }
       const query = { "buyer.email": email };
       const cursor = jobsCollection.find(query);
       const result = await cursor.toArray();
@@ -126,7 +146,7 @@ async function run() {
     });
 
     // Get all bids data from mongodb
-    app.get("/my-bids/:email", async (req, res) => {
+    app.get("/my-bids/:email", verifyToken, async (req, res) => {
       const email = req.params.email;
       const query = { email: email };
       const cursor = bidsCollection.find(query);
@@ -135,7 +155,7 @@ async function run() {
     });
 
     // Get all bids requests from db for job owner
-    app.get("/bid-requests/:email", async (req, res) => {
+    app.get("/bid-requests/:email", verifyToken, async (req, res) => {
       const email = req.params.email;
       const query = { "buyer.email": email };
       const cursor = bidsCollection.find(query);
