@@ -6,7 +6,13 @@ const BidRequests = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
-  const { data: bids = [], isLoading } = useQuery({
+  const {
+    data: bids = [],
+    isLoading,
+    refetch,
+    isError,
+    error,
+  } = useQuery({
     queryFn: () => getData(),
     queryKey: ["bids", user?.email],
   });
@@ -18,6 +24,13 @@ const BidRequests = () => {
   //   getData()
   // }, [user])
 
+  /**
+ * 
+ * const getData = async () => {
+  const { data } = await axiosSecure(`/bid-requests/${user?.email}`);
+  setBids(data);
+};
+ */
   const getData = async () => {
     const { data } = await axiosSecure(`/bid-requests/${user?.email}`);
     return data;
@@ -59,6 +72,9 @@ const BidRequests = () => {
   };
 
   if (isLoading) return <p>Data is still loading......</p>;
+
+  if (isError) return <p>Error occured</p>;
+  // if (error) return <p>{error.message}</p>;
 
   return (
     <section className="container px-4 mx-auto pt-12">
